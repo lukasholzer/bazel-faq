@@ -1,0 +1,21 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true /* Import emit helpers from 'tslib'. */,
+    "target": "ESNext",
+    "module": "CommonJS",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["DOM", "DOM.Iterable", "esnext"],
+    "skipLibCheck": true /* Skip type checking of declaration files. */,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {}
+  },
+  "exclude": ["node_modules", "bazel-out", "dist"]
+}

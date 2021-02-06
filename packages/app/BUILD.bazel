@@ -1,0 +1,71 @@
+load("//tools:index.bzl", "devserver", "jest_test", "prettier")
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
+load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin")
+
+package(default_visibility = ["//:__subpackages__"])
+
+devserver(
+    name = "serve",
+    srcs = [
+        ":app",
+        ":styles",
+        "@npm//preact",
+    ],
+    entry = "src/main.js",
+    index = ":index.html",
+)
+
+copy_to_bin(
+    name = "styles",
+    srcs = glob(["**/*.css"]),
+)
+
+ts_project(
+    name = "app",
+    srcs = glob(
+        ["**/*.ts*"],
+        exclude = ["*.test.ts"],
+    ),
+    source_map = False,
+    tsconfig = ":tsconfig_app",
+    deps = ["@npm//preact"],
+)
+
+ts_project(
+    name = "tests",
+    srcs = glob(["**/*.test.ts"]),
+    declaration = False,
+    tsconfig = ":tsconfig_test",
+    deps = [
+        "@npm//@types/jest",
+        "@npm//@types/node",
+    ],
+)
+
+jest_test(
+    name = "unit",
+    srcs = [":tests"],
+)
+
+prettier(
+    name = "prettier",
+    srcs = glob(["**/*"]),
+)
+
+ts_config(
+    name = "tsconfig_app",
+    src = ":tsconfig.app.json",
+    deps = [
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = ":tsconfig.test.json",
+    deps = [
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
+    ],
+)
