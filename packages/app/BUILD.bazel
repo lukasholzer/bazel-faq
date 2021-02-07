@@ -12,7 +12,7 @@ devserver(
         "@npm//preact",
     ],
     entry = "src/main.js",
-    index = ":index.html",
+    index = ":src/index.html",
 )
 
 copy_to_bin(

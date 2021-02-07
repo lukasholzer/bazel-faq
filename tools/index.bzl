@@ -12,11 +12,13 @@ def devserver(name, entry, index, srcs = []):
         srcs = ["//tools:devserver.go"],
         deps = [
             "@com_github_evanw_esbuild//pkg/api:go_default_library",
+            "@com_github_gorilla_websocket//:go_default_library",
         ],
         data = srcs + [index],
         args = [
             "--root ./%s" % native.package_name(),
             "--entry %s/%s" % (native.package_name(), entry),
+            "--index $(rootpath %s)" % index,
         ],
         tags = ["ibazel_notify_changes"],
     )
