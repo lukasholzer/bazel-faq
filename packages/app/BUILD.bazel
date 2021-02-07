@@ -4,12 +4,16 @@ load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin")
 
 package(default_visibility = ["//:__subpackages__"])
 
+DEPENDENCIES = [
+    "@npm//preact",
+    "@npm//highlight-ts",
+]
+
 devserver(
     name = "serve",
-    srcs = [
+    srcs = DEPENDENCIES + [
         ":app",
         ":styles",
-        "@npm//preact",
     ],
     entry = "src/main.js",
     index = ":src/index.html",
@@ -28,7 +32,7 @@ ts_project(
     ),
     source_map = False,
     tsconfig = ":tsconfig_app",
-    deps = ["@npm//preact"],
+    deps = DEPENDENCIES,
 )
 
 ts_project(

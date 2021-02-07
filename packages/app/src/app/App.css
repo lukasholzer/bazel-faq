@@ -1,0 +1,7 @@
+.app {
+  margin-top: 3em;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-flow: column;
+  align-items: center;
+}

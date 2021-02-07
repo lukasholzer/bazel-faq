@@ -1,0 +1,31 @@
+.code-box {
+  --color: 197, 203, 208;
+  --background: 44, 37, 64;
+  margin: 0  0 1em 0;
+}
+
+.code-box pre {
+  margin: 0;
+  display: inline-flex;
+  background-color: rgb(var(--background));
+  color: rgb(var(--color));
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+.code-box-code {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  counter-reset: codelines;
+}
+
+.code-box-code > *::before {
+  counter-increment: codelines;
+  content: counter(codelines);
+  color: rgba(var(--color), 0.5);
+  text-align: right;
+  display: inline-block;
+  width: 1em;
+  margin-right: 1em;
+}

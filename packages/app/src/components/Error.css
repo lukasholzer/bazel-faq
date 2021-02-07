@@ -1,0 +1,9 @@
+.error-box {
+  max-width: 36em;
+  margin: 3em;
+  text-align: left;
+}
+
+.error-box > * {
+  margin: 1em 0;
+}

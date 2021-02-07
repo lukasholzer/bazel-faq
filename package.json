@@ -7,6 +7,7 @@
     "test": "bazel test //..."
   },
   "dependencies": {
+    "highlight-ts": "^9.12.1-2",
     "preact": "^10.5.12"
   },
   "devDependencies": {
