@@ -1,0 +1,27 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(default_visibility = ["//:__subpackages__"])
+
+go_library(
+    name = "bundle",
+    srcs = [
+        ":bundle.go",
+    ],
+    importpath = "github.com/lukasholzer/bazel-faq/bundle",
+    deps = [
+        "@com_github_evanw_esbuild//pkg/api:go_default_library",
+        "@com_github_gorilla_websocket//:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "build",
+    srcs = [
+        ":build.go",
+    ],
+    deps = [
+        ":bundle",
+        # "@com_github_evanw_esbuild//pkg/api:go_default_library",
+        # "@com_github_gorilla_websocket//:go_default_library",
+    ],
+)

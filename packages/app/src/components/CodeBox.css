@@ -11,6 +11,7 @@
   color: rgb(var(--color));
   border-radius: 0.5em;
   padding: 1em;
+  background-color: blue;
 }
 
 .code-box-code {

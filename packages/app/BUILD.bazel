@@ -1,4 +1,4 @@
-load("//tools:index.bzl", "devserver", "jest_test", "prettier")
+load("//tools:index.bzl", "devserver", "jest_test", "prettier", "bundle")
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
 load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin")
 
@@ -9,12 +9,21 @@ DEPENDENCIES = [
     "@npm//highlight-ts",
 ]
 
+SRCS = DEPENDENCIES + [
+    ":app",
+    ":styles",
+]
+
 devserver(
     name = "serve",
-    srcs = DEPENDENCIES + [
-        ":app",
-        ":styles",
-    ],
+    srcs = SRCS,
+    entry = "src/main.js",
+    index = ":src/index.html",
+)
+
+bundle(
+    name = "bundle",
+    srcs = SRCS,
     entry = "src/main.js",
     index = ":src/index.html",
 )

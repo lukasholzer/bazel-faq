@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+package(default_visibility = ["//:__subpackages__"])
+
+exports_files([
+    "serve.go",
+])
+
+go_library(
+    name = "serve",
+    srcs = [":serve.go"],
+    importpath = "github.com/lukasholzer/bazel-faq/serve",
+    deps = [
+        "//tools/build:bundle",
+        "@com_github_evanw_esbuild//pkg/api:go_default_library",
+        "@com_github_gorilla_websocket//:go_default_library",
+        "@io_bazel_rules_go//go/tools/bazel_testing:go_default_library",
+    ],
+)

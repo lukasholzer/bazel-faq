@@ -5,22 +5,28 @@ load("@build_bazel_rules_nodejs//:index.bzl", "js_library")
 load("@npm//jest:index.bzl", "jest", _jest_test = "jest_test")
 load("@npm//prettier:index.bzl", _prettier = "prettier", _prettier_test = "prettier_test")
 load("@io_bazel_rules_go//go:def.bzl", "go_binary")
+load("//tools/build:esbuild.bzl", "esbuild")
 
 def devserver(name, entry, index, srcs = []):
     go_binary(
         name = name,
-        srcs = ["//tools:devserver.go"],
-        deps = [
-            "@com_github_evanw_esbuild//pkg/api:go_default_library",
-            "@com_github_gorilla_websocket//:go_default_library",
-        ],
-        data = srcs + [index],
+        embed = ["//tools/serve"],
         args = [
             "--root ./%s" % native.package_name(),
             "--entry %s/%s" % (native.package_name(), entry),
             "--index $(rootpath %s)" % index,
         ],
-        tags = ["ibazel_notify_changes"],
+        data = srcs + [index],
+        tags = [
+            # This tag instructs ibazel to pipe into stdin a event describing actions.
+            "ibazel_notify_changes",
+        ],
+    )
+
+def bundle(name, entry, index, srcs = []):
+    esbuild(
+        name = name,
+        srcs = srcs + [index],
     )
 
 def ts_compile(name, srcs, deps, package_name = None, package_json = None, **kwargs):

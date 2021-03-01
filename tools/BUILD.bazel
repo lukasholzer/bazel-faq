@@ -2,5 +2,4 @@ package(default_visibility = ["//:__subpackages__"])
 
 exports_files([
     "jest-reporter.js",
-    "devserver.go",
 ])

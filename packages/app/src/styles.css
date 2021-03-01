@@ -1,5 +1,5 @@
 :root {
-  --primary: f, f, f;
+  --primary: 255, 255, 255;
   --complimentary: 0, 0, 0;
   --font-mono: 'Source Code Pro', monospace;
   --font-regular: 'Source Sans Pro', sans-serif;
